@@ -9,7 +9,7 @@ class AppTheme {
       appBarTheme: const AppBarTheme(
         color: AppColors.primary,
         titleTextStyle: TextStyle(
-          color: AppColors.text,
+          color: Colors.white,
           fontSize: 20,
           fontWeight: FontWeight.bold,
         ),
