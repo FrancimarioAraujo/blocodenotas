@@ -1,15 +1,15 @@
+import 'package:blocodenotas/controllers/notes_controller.dart';
 import 'package:blocodenotas/models/note_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
 class NoteCard extends StatefulWidget {
   final NoteModel note;
-  final Function onDelete;
   final Function onEdit;
 
   const NoteCard({
     Key? key,
     required this.note,
-    required this.onDelete,
     required this.onEdit,
   }) : super(key: key);
 
@@ -18,6 +18,7 @@ class NoteCard extends StatefulWidget {
 }
 
 class _NoteCardState extends State<NoteCard> {
+  NotesController notesController = Modular.get<NotesController>();
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -51,9 +52,13 @@ class _NoteCardState extends State<NoteCard> {
         ),
         trailing: IconButton(
           icon: const Icon(Icons.delete, color: Colors.red),
-          onPressed: () => widget.onDelete(),
+          onPressed: () async {
+            await notesController.deleteNote(widget.note.id);
+          },
         ),
-        onTap: () => widget.onEdit(), // Ao clicar na nota, abre para edição
+        onTap: () {
+          Modular.to.pushNamed("/edit");
+        },
       ),
     );
   }

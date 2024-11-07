@@ -17,6 +17,7 @@ class MyApp extends StatelessWidget {
       theme: AppTheme.lightTheme,
       routeInformationParser: Modular.routeInformationParser,
       routerDelegate: Modular.routerDelegate,
+      debugShowCheckedModeBanner: false,
     );
   }
 }

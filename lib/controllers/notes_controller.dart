@@ -10,27 +10,26 @@ abstract class _NotesControllerBase with Store {
   @observable
   ObservableList<NoteModel> notes = ObservableList<NoteModel>();
 
-  Future<void> _init() async {
+  Future<void> init() async {
     _notesBox = await Hive.openBox<NoteModel>('notesBox');
     _loadNotes();
   }
 
   void _loadNotes() {
-    final allNotes = _notesBox.values.toList();
     notes.clear();
-    notes.addAll(allNotes);
+    notes.addAll(_notesBox.values.toList());
   }
 
   @action
-  Future<void> addNote(NoteModel note) async {
-    await _notesBox.add(note);
+  Future<void> saveNote(NoteModel note) async {
+    await _notesBox.put(note.id, note);
     notes.add(note);
   }
 
   @action
-  Future<void> deleteNote(int index) async {
-    await _notesBox.deleteAt(index);
-    notes.removeAt(index);
+  Future<void> deleteNote(String id) async {
+    await _notesBox.delete(id);
+    notes.removeWhere((note) => note.id == id);
   }
 
   @action

@@ -25,20 +25,20 @@ mixin _$NotesController on _NotesControllerBase, Store {
     });
   }
 
-  late final _$addNoteAsyncAction =
-      AsyncAction('_NotesControllerBase.addNote', context: context);
+  late final _$saveNoteAsyncAction =
+      AsyncAction('_NotesControllerBase.saveNote', context: context);
 
   @override
-  Future<void> addNote(NoteModel note) {
-    return _$addNoteAsyncAction.run(() => super.addNote(note));
+  Future<void> saveNote(NoteModel note) {
+    return _$saveNoteAsyncAction.run(() => super.saveNote(note));
   }
 
   late final _$deleteNoteAsyncAction =
       AsyncAction('_NotesControllerBase.deleteNote', context: context);
 
   @override
-  Future<void> deleteNote(int index) {
-    return _$deleteNoteAsyncAction.run(() => super.deleteNote(index));
+  Future<void> deleteNote(String id) {
+    return _$deleteNoteAsyncAction.run(() => super.deleteNote(id));
   }
 
   late final _$editNoteAsyncAction =

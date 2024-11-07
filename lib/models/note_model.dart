@@ -10,7 +10,11 @@ class NoteModel {
   @HiveField(1)
   final String content;
 
+  @HiveField(2)
+  final String id;
+
   NoteModel({
+    required this.id,
     required this.title,
     required this.content,
   });
