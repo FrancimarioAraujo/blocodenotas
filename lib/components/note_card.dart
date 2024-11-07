@@ -1,7 +1,7 @@
 import 'package:blocodenotas/models/note_model.dart';
 import 'package:flutter/material.dart';
 
-class NoteCard extends StatelessWidget {
+class NoteCard extends StatefulWidget {
   final NoteModel note;
   final Function onDelete;
   final Function onEdit;
@@ -14,21 +14,26 @@ class NoteCard extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<NoteCard> createState() => _NoteCardState();
+}
+
+class _NoteCardState extends State<NoteCard> {
+  @override
   Widget build(BuildContext context) {
     return Card(
-      elevation: 5, // Dá uma sombra para criar profundidade
+      elevation: 5,
       margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(15), // Cantos arredondados
+        borderRadius: BorderRadius.circular(15),
       ),
       child: ListTile(
         contentPadding: const EdgeInsets.all(16),
         leading: const CircleAvatar(
           backgroundColor: Colors.blueAccent,
-          child: Icon(Icons.note, color: Colors.white), // Ícone da nota
+          child: Icon(Icons.note, color: Colors.white),
         ),
         title: Text(
-          note.title,
+          widget.note.title,
           style: const TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 18,
@@ -36,10 +41,9 @@ class NoteCard extends StatelessWidget {
           ),
         ),
         subtitle: Text(
-          note.content,
-          maxLines: 2, // Limita o texto a 2 linhas
-          overflow:
-              TextOverflow.ellipsis, // Adiciona '...' se o texto for maior
+          widget.note.content,
+          maxLines: 2,
+          overflow: TextOverflow.ellipsis,
           style: const TextStyle(
             fontSize: 14,
             color: Colors.black54,
@@ -47,9 +51,9 @@ class NoteCard extends StatelessWidget {
         ),
         trailing: IconButton(
           icon: const Icon(Icons.delete, color: Colors.red),
-          onPressed: () => onDelete(),
+          onPressed: () => widget.onDelete(),
         ),
-        onTap: () => onEdit(), // Ao clicar na nota, abre para edição
+        onTap: () => widget.onEdit(), // Ao clicar na nota, abre para edição
       ),
     );
   }

@@ -1,9 +1,19 @@
 import 'package:blocodenotas/app_colors.dart';
 import 'package:blocodenotas/components/note_card.dart';
+import 'package:blocodenotas/controllers/notes_controller.dart';
 import 'package:blocodenotas/models/note_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  NotesController notesController = Modular.get<NotesController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,7 +31,6 @@ class HomePage extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         backgroundColor: AppColors.primary,
         onPressed: () {},
-        tooltip: 'Increment',
         child: const Icon(Icons.add),
       ),
     );
