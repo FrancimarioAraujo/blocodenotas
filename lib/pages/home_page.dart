@@ -33,6 +33,13 @@ class _HomePageState extends State<HomePage> {
         title: const Text('Bloco de Notas'),
       ),
       body: Observer(builder: (context) {
+        if (notesController.notes.isEmpty) {
+          return const Center(
+              child: Text(
+            "Não há nenhuma nota",
+            style: TextStyle(fontSize: 20),
+          ));
+        }
         return ListView.builder(
             itemCount: notesController.notes.length,
             itemBuilder: (context, index) {

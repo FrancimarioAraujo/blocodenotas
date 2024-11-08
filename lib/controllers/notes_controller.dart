@@ -10,9 +10,20 @@ abstract class _NotesControllerBase with Store {
   @observable
   ObservableList<NoteModel> notes = ObservableList<NoteModel>();
 
+  @observable
+  NoteModel? noteSelected;
+
+  @computed
+  bool get noNotesSelected => noteSelected == null;
+
   Future<void> init() async {
     _notesBox = await Hive.openBox<NoteModel>('notesBox');
     _loadNotes();
+  }
+
+  @action
+  void setNoteSelected(NoteModel? note) {
+    noteSelected = note;
   }
 
   void _loadNotes() {
@@ -33,8 +44,9 @@ abstract class _NotesControllerBase with Store {
   }
 
   @action
-  Future<void> editNote(int index, NoteModel updatedNote) async {
-    await _notesBox.putAt(index, updatedNote);
+  Future<void> editNote(NoteModel updatedNote) async {
+    await _notesBox.put(updatedNote.id, updatedNote);
+    int index = notes.indexWhere((note) => note.id == updatedNote.id);
     notes[index] = updatedNote;
   }
 }

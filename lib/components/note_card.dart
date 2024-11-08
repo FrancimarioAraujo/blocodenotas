@@ -1,3 +1,4 @@
+import 'package:blocodenotas/components/confirm_alert_dialog.dart';
 import 'package:blocodenotas/controllers/notes_controller.dart';
 import 'package:blocodenotas/models/note_model.dart';
 import 'package:flutter/material.dart';
@@ -53,10 +54,23 @@ class _NoteCardState extends State<NoteCard> {
         trailing: IconButton(
           icon: const Icon(Icons.delete, color: Colors.red),
           onPressed: () async {
-            await notesController.deleteNote(widget.note.id);
+            await showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return ConfirmAlertDialog(
+                    title: "Remover Nota",
+                    description:
+                        "Caso você clique em confirmar essa nota será apagada permanentemente.");
+              },
+            ).then((confirmed) async {
+              if (confirmed) {
+                await notesController.deleteNote(widget.note.id);
+              }
+            });
           },
         ),
         onTap: () {
+          notesController.setNoteSelected(widget.note);
           Modular.to.pushNamed("/edit");
         },
       ),
